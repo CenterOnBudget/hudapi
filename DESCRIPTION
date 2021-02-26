@@ -1,11 +1,18 @@
 Package: hudapi
-Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
-Encoding: UTF-8
+Title: Load Data From HUD API Into R
+Version: 0.0.0.9000
+Authors@R: person("Matt", "Saenz", email = "vsaenz@cbpp.org",
+                  role = c("aut", "cre"))
+Description: R package for loading data from the US Department of Housing and
+    Urban Development's Fair Market Rents and Income Limits Datasets API
+    (hereinafter "HUD API"). Package provides functions to easily load HUD API
+    datasets as tibbles or base data frames.
+License: file LICENSE
 LazyData: true
+Imports: 
+    httr (>= 1.4.2),
+    jsonlite (>= 1.7.2),
+    glue (>= 1.4.2),
+    tibble (>= 3.0.6)
+RoxygenNote: 7.1.1
+Encoding: UTF-8
