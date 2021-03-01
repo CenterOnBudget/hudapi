@@ -109,8 +109,9 @@ get_geo <- function(geography, state = NULL,
 #' a given state from the HUD API.
 #'
 #' @param geography Geography of data to pull. One of "county" or "metro".
-#' @param state State to pull data for. Specify as an upper or lowercase two-
-#'   letter state abbreviation. States supported include the 50 states plus DC.
+#' @param state State to pull data for. Specify as an upper or lowercase
+#'   two-letter state abbreviation. States supported include the 50 states
+#'   plus DC.
 #' @param year Year to pull data for. Currently, years 2017 to 2020 are
 #'   supported.
 #' @inheritParams get_geo

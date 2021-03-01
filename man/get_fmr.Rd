@@ -16,8 +16,9 @@ get_fmr(
 \arguments{
 \item{geography}{Geography of data to pull. One of "county" or "metro".}
 
-\item{state}{State to pull data for. Specify as an upper or lowercase two-
-letter state abbreviation. States supported include the 50 states plus DC.}
+\item{state}{State to pull data for. Specify as an upper or lowercase
+two-letter state abbreviation. States supported include the 50 states
+plus DC.}
 
 \item{year}{Year to pull data for. Currently, years 2017 to 2020 are
 supported.}
