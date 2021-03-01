@@ -73,7 +73,7 @@ check_state <- function(state) {
 
 # Check if specified year is valid
 #
-# Check is specified year is a valid option for the HUD API. If more than one
+# Check if specified year is a valid option for the HUD API. If more than one
 # year is passed or an invalid year is passed, throw error. Otherwise, return
 # nothing.
 #
