@@ -13,7 +13,8 @@
 #'   "metro".
 #' @param state For county-level data, what state to pull data for. Specify as
 #'   an upper or lowercase two-letter state abbreviation. Note that this
-#'   argument is required for (and only applicable to) county-level data.
+#'   argument is required for (and only applicable to) county-level data. States
+#'   supported include the 50 states plus DC.
 #' @param token HUD API
 #'   \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
 #'   Store your access token in an environment variable named
@@ -109,7 +110,7 @@ get_geo <- function(geography, state = NULL,
 #'
 #' @param geography Geography of data to pull. One of "county" or "metro".
 #' @param state State to pull data for. Specify as an upper or lowercase two-
-#'   letter state abbreviation.
+#'   letter state abbreviation. States supported include the 50 states plus DC.
 #' @param year Year to pull data for. Currently, years 2017 to 2020 are
 #'   supported.
 #' @inheritParams get_geo
@@ -177,10 +178,11 @@ get_fmr <- function(geography, state, year,
 #' @param geography Geography of data to pull. One of "state", "county", or
 #'   "metro".
 #' @param entityid ID of entity to pull data for. If geography is "state", ID
-#'   should be an upper or lowercase two-letter state abbreviation. If geography
-#'   is "county", ID should be a 5-character county FIPS code. If geography is
-#'   "metro", ID should be a 16-character METRO code. Using \code{get_geo()} to
-#'   look up METRO codes is recommended.
+#'   should be an upper or lowercase two-letter state abbreviation. States
+#'   supported include the 50 states plus DC. If geography is "county", ID
+#'   should be a 5-character county FIPS code. If geography is "metro", ID
+#'   should be a 16-character METRO code. Using \code{get_geo()} to look up
+#'   METRO codes is recommended.
 #' @inheritParams get_fmr
 #' @return A tibble or base data frame with requested data.
 #'
