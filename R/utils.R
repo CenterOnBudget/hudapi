@@ -24,6 +24,9 @@ check_token <- function(token) {
 
 check_resp_code <- function(resp_code) {
 
+  # Response code descriptions from HUD API documentation:
+  # https://www.huduser.gov/portal/dataset/fmr-api.html
+
   # Lightly modified to ensure helpfulness
   resp_code_desc <- c(
     `200` = "Request was successful",
