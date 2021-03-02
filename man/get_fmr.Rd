@@ -25,9 +25,8 @@ supported.}
 
 \item{token}{HUD API
 \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
-Store your access token in an environment variable named
-\code{HUD_API_TOKEN} to allow this function to automatically load it as
-needed (see \href{https://github.com/CenterOnBudget/hudapi}{README} for
+Store your token in env var \code{HUD_API_TOKEN} to pass automatically
+(see \href{https://github.com/CenterOnBudget/hudapi}{README} for
 instructions).}
 
 \item{drop_empty_cols}{If \code{TRUE} (default), drop empty columns in
