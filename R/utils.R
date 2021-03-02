@@ -45,7 +45,11 @@ check_resp_code <- function(resp_code) {
   )
 
   if (resp_code != 200) {
-    stop(resp_code_desc[as.character(resp_code)], call. = FALSE)
+    stop(
+      "HUD API request failed [", resp_code, "]: ",
+      resp_code_desc[as.character(resp_code)],
+      call. = FALSE
+    )
   }
 }
 
