@@ -19,6 +19,7 @@ check_token <- function(token) {
       stop("You must provide a HUD API access `token`", call. = FALSE)
     }
   } else {
+    message("Store your `token` in env var `HUD_API_TOKEN` to pass automatically")
     token
   }
 }
