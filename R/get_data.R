@@ -12,9 +12,8 @@
 #' @param geography Geography of data to pull. One of "state", "county", or
 #'   "metro".
 #' @param state For county-level data, what state to pull data for. Specify as
-#'   an upper or lowercase two-letter state abbreviation. Note that this
-#'   argument is required for (and only applicable to) county-level data. States
-#'   supported include the 50 states plus DC.
+#'   an upper or lowercase two-letter state abbreviation. Currently, the 50
+#'   states plus DC are supported.
 #' @param token HUD API
 #'   \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
 #'   Store your access token in an environment variable named
@@ -110,8 +109,8 @@ get_geo <- function(geography, state = NULL,
 #'
 #' @param geography Geography of data to pull. One of "county" or "metro".
 #' @param state State to pull data for. Specify as an upper or lowercase
-#'   two-letter state abbreviation. States supported include the 50 states
-#'   plus DC.
+#'   two-letter state abbreviation. Currently, the 50 states plus DC are
+#'   supported.
 #' @param year Year to pull data for. Currently, years 2017 to 2020 are
 #'   supported.
 #' @inheritParams get_geo
@@ -179,11 +178,11 @@ get_fmr <- function(geography, state, year,
 #' @param geography Geography of data to pull. One of "state", "county", or
 #'   "metro".
 #' @param entityid ID of entity to pull data for. If geography is "state", ID
-#'   should be an upper or lowercase two-letter state abbreviation. States
-#'   supported include the 50 states plus DC. If geography is "county", ID
-#'   should be a 5-character county FIPS code. If geography is "metro", ID
-#'   should be a 16-character METRO code. Using \code{get_geo()} to look up
-#'   METRO codes is recommended.
+#'   should be an upper or lowercase two-letter state abbreviation. Currently,
+#'   the 50 states are supported. If geography is "county", ID should be a
+#'   5-character county FIPS code. If geography is "metro", ID should be a
+#'   16-character METRO code. Using \code{get_geo()} to look up METRO codes is
+#'   recommended.
 #' @inheritParams get_fmr
 #' @return A tibble or base data frame with requested data.
 #'
@@ -204,7 +203,15 @@ get_il <- function(geography, entityid, year,
   }
 
   if (geography == "state") {
-    check_state(entityid)
+    if (entityid %in% c("DC", "dc")) {
+      stop(
+        "To pull Income Limits for DC, you must request at the ",
+        "`county` or `metro` level of `geography`",
+        call. = FALSE
+      )
+    } else {
+      check_state(entityid)
+    }
   } else if (geography == "county") {
     if (nchar(entityid) != 5) {
       stop(
