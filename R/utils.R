@@ -4,12 +4,7 @@
 
 
 # Check access token
-#
-# Check if user passed an access token. If non-`NULL` value was passed, return
-# as given. Otherwise, check for a `HUD_API_TOKEN` environment variable and
-# return it if it exists. If there is no `HUD_API_TOKEN` environment variable,
-# throw error.
-#
+
 check_token <- function(token) {
 
   if (is.null(token)) {
@@ -26,11 +21,7 @@ check_token <- function(token) {
 
 
 # Give helpful error message for non-200 response code
-#
-# Check response code of HUD API call and, if non-200 response code, return
-# an error with a response code description provided by HUD API documentation.
-# If response code is 200 (OK), return nothing.
-#
+
 check_resp_code <- function(resp_code) {
 
   # Lightly modified to ensure helpfulness
@@ -56,14 +47,11 @@ check_resp_code <- function(resp_code) {
 
 
 # Check if specified state is valid
-#
-# Check if specified state is a valid option for the HUD API. If more than one
-# state is passed or an invalid state is passed, throw error. Otherwise, return
-# nothing.
-#
+
 check_state <- function(state) {
 
   # Must use `::` to resolve R CMD check note
+  # hudapi currently supports the 50 states plus DC
   states <- c(datasets::state.abb, "DC", tolower(datasets::state.abb), "dc")
 
   if (length(state) > 1 || !(state %in% states)) {
@@ -77,11 +65,7 @@ check_state <- function(state) {
 
 
 # Check if specified year is valid
-#
-# Check if specified year is a valid option for the HUD API. If more than one
-# year is passed or an invalid year is passed, throw error. Otherwise, return
-# nothing.
-#
+
 check_year <- function(year) {
 
   # Year availability is not well-documented
@@ -95,10 +79,7 @@ check_year <- function(year) {
 
 
 # Drop empty columns
-#
-# Drop columns that are all `NA` or empty strings from a data frame, if any
-# exist.
-#
+
 drop_empty_cols <- function(df) {
 
   empty_cols <- vector(mode = "logical", length = ncol(df))
