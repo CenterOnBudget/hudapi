@@ -73,30 +73,32 @@ get_geo <- function(geography, state = NULL,
 
   # Clean data -----------------------------------------------------------------
 
-  parsed <- jsonlite::fromJSON(
+  output <- jsonlite::fromJSON(
     httr::content(resp, as = "text", encoding = "UTF-8")
   )
 
+  stopifnot(is.data.frame(output))
+
   if (geography == "state") {
     # Add leading 0 to state FIPS codes
-    parsed$state_num <- sprintf("%02d", as.integer(parsed$state_num))
+    output$state_num <- sprintf("%02d", as.integer(output$state_num))
   }
 
   if (geography == "county") {
     # Remove trailing 9s from county FIPS codes
-    parsed$fips_code <- substr(parsed$fips_code, start = 1, stop = 5)
+    output$fips_code <- substr(output$fips_code, start = 1, stop = 5)
   }
 
   if (drop_empty_cols) {
-    parsed <- drop_empty_cols(parsed)
+    output <- drop_empty_cols(output)
   }
 
   # Return data ----------------------------------------------------------------
 
   if (tibble) {
-    tibble::as_tibble(parsed)
+    tibble::as_tibble(output)
   } else {
-    parsed
+    output
   }
 }
 
@@ -156,8 +158,11 @@ get_fmr <- function(geography, state, year,
   }
 
   if (length(output) == 0) {
+    message("HUD API returned an empty dataset for your request")
     return(output)
   }
+
+  stopifnot(is.data.frame(output))
 
   if (drop_empty_cols) {
     output <- drop_empty_cols(output)
@@ -259,6 +264,8 @@ get_il <- function(geography, entityid, year,
   data[income_limits] <- lapply(data[income_limits], unlist)
   data$size <- 1:8
   output <- as.data.frame(data, row.names = data$size)
+
+  stopifnot(is.data.frame(output))
 
   if (drop_empty_cols) {
     output <- drop_empty_cols(output)
