@@ -149,22 +149,31 @@ get_fmr <- function(geography, state, year,
     httr::content(resp, as = "text", encoding = "UTF-8")
   )
 
+  data <- parsed$data
+
+  if (!all(c("counties", "metroareas") %in% names(data))) {
+    stop("Fair Market Rents not parsed as expected", call. = FALSE)
+  }
+
   if (geography == "county") {
-    output <- parsed$data[["counties"]]
-    # Remove trailing 9s from county FIPS codes
-    output$fips_code <- substr(output$fips_code, start = 1, stop = 5)
+    output <- data$counties
   } else {
-    output <- parsed$data[["metroareas"]]
+    output <- data$metroareas
   }
 
   if (length(output) == 0) {
     # This seems to only occur when requesting metro data for states with no
     # metro areas
-    message("HUD API returned an empty dataset for your request")
+    message("HUD API did not return any data for your request")
     return(output)
   }
 
   stopifnot(is.data.frame(output))
+
+  if (geography == "county") {
+    # Remove trailing 9s from county FIPS codes
+    output$fips_code <- substr(output$fips_code, start = 1, stop = 5)
+  }
 
   if (drop_empty_cols) {
     output <- drop_empty_cols(output)
@@ -263,6 +272,11 @@ get_il <- function(geography, entityid, year,
 
   data <- parsed$data
   income_limits <- c("low", "very_low", "extremely_low")
+
+  if (!all(income_limits %in% names(data)) || length(data$low) != 8) {
+    stop("Income Limits not parsed as expected", call. = FALSE)
+  }
+
   data[income_limits] <- lapply(data[income_limits], unlist)
   data$size <- 1:8
   output <- as.data.frame(data, row.names = data$size)
