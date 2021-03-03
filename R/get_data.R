@@ -151,7 +151,7 @@ get_fmr <- function(geography, state, year,
 
   data <- parsed$data
 
-  if (!all(c("counties", "metroareas") %in% names(data))) {
+  if (!all(c("counties", "metroareas", "year") %in% names(data))) {
     stop("Fair Market Rents not parsed as expected", call. = FALSE)
   }
 
@@ -169,6 +169,8 @@ get_fmr <- function(geography, state, year,
   }
 
   stopifnot(is.data.frame(output))
+
+  output$year <- data$year
 
   if (geography == "county") {
     # Remove trailing 9s from county FIPS codes
