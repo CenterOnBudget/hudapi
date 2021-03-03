@@ -158,6 +158,8 @@ get_fmr <- function(geography, state, year,
   }
 
   if (length(output) == 0) {
+    # This seems to only occur when requesting metro data for states with no
+    # metro areas
     message("HUD API returned an empty dataset for your request")
     return(output)
   }
@@ -264,8 +266,6 @@ get_il <- function(geography, entityid, year,
   data[income_limits] <- lapply(data[income_limits], unlist)
   data$size <- 1:8
   output <- as.data.frame(data, row.names = data$size)
-
-  stopifnot(is.data.frame(output))
 
   if (drop_empty_cols) {
     output <- drop_empty_cols(output)
