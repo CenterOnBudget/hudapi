@@ -69,7 +69,7 @@ get_geo <- function(geography, state = NULL,
     httr::add_headers(Authorization = glue::glue("Bearer {token}"))
   )
 
-  check_resp_code(resp$status_code)
+  check_resp(resp)
 
   # Clean data -----------------------------------------------------------------
 
@@ -141,7 +141,7 @@ get_fmr <- function(geography, state, year,
     httr::add_headers(Authorization = glue::glue("Bearer {token}"))
   )
 
-  check_resp_code(resp$status_code)
+  check_resp(resp)
 
   # Clean data -----------------------------------------------------------------
 
@@ -249,7 +249,7 @@ get_il <- function(geography, entityid, year,
     httr::add_headers(Authorization = glue::glue("Bearer {token}"))
   )
 
-  check_resp_code(resp$status_code)
+  check_resp(resp)
 
   # Clean data -----------------------------------------------------------------
 

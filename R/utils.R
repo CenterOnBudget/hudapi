@@ -20,9 +20,9 @@ check_token <- function(token) {
 }
 
 
-# Give helpful error message for non-200 response code
+# Check HUD API response
 
-check_resp_code <- function(resp_code) {
+check_resp <- function(resp) {
 
   # Response code descriptions from HUD API documentation:
   # https://www.huduser.gov/portal/dataset/fmr-api.html
@@ -39,10 +39,14 @@ check_resp_code <- function(resp_code) {
     `500` = "Internal server error occurred"
   )
 
-  if (resp_code != 200) {
+  if (httr::http_type(resp) != "application/json") {
+    stop("HUD API did not return JSON", call. = FALSE)
+  }
+
+  if (resp$status_code != 200) {
     stop(
-      "HUD API request failed [", resp_code, "]: ",
-      resp_code_desc[as.character(resp_code)],
+      "HUD API request failed [", resp$status_code, "]: ",
+      resp_code_desc[as.character(resp$status_code)],
       call. = FALSE
     )
   }
