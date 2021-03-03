@@ -17,8 +17,8 @@ get_geo(
 "metro".}
 
 \item{state}{For county-level data, what state to pull data for. Specify as
-an upper or lowercase two-letter state abbreviation. Currently, the 50
-states plus DC are supported.}
+an upper or lowercase two-letter state abbreviation. The 50 states plus DC,
+AS, GU, MP, PR, and VI are supported.}
 
 \item{token}{HUD API
 \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.

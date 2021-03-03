@@ -51,18 +51,30 @@ check_resp_code <- function(resp_code) {
 
 # Check if specified state is valid
 
-check_state <- function(state) {
+check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
 
-  # Must use `::` to resolve R CMD check note
-  # hudapi currently supports the 50 states plus DC
-  states <- c(datasets::state.abb, "DC", tolower(datasets::state.abb), "dc")
+  states <- datasets::state.abb
 
-  if (length(state) > 1 || !(state %in% states)) {
+  if (plus_dc) {
+    states <- c(states, "DC")
+  }
+
+  if (plus_other) {
+    # American Samoa, Guam, Northern Mariana Islands, Puerto Rico, and
+    # Virgin Islands
+    states <- c(states, "AS", "GU", "MP", "PR", "VI")
+  }
+
+  if (length(state) > 1 || !is.character(state) || nchar(state) != 2) {
     stop(
       "Pass one `state` at a time using an upper ",
       "or lowercase two-letter state abbreviation",
       call. = FALSE
     )
+  }
+
+  if (!(toupper(state) %in% states)) {
+    stop("Invalid `state`, see help page for supported states", call. = FALSE)
   }
 }
 
