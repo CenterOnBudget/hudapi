@@ -170,6 +170,11 @@ get_fmr <- function(geography, state, year,
 
   stopifnot(is.data.frame(output))
 
+  # Some columns in FMR data have non-syntactic names
+  names(output) <- tolower(
+    gsub(pattern = "[ -]+", replacement = "_", x = names(output))
+  )
+
   output$year <- data$year
 
   if (geography == "county") {
@@ -282,6 +287,9 @@ get_il <- function(geography, entityid, year,
   data[income_limits] <- lapply(data[income_limits], unlist)
   data$size <- 1:8
   output <- as.data.frame(data, row.names = data$size)
+
+  # Ensure that all names are lowercase for consistency
+  names(output) <- tolower(names(output))
 
   if (drop_empty_cols) {
     output <- drop_empty_cols(output)
