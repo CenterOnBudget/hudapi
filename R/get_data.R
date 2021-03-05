@@ -278,13 +278,13 @@ get_il <- function(geography, entityid, year,
   )
 
   data <- parsed$data
-  income_limits <- c("low", "very_low", "extremely_low")
+  il <- c("low", "very_low", "extremely_low")
 
-  if (!all(income_limits %in% names(data)) || length(data$low) != 8) {
+  if (!all(il %in% names(data)) || !all(lengths(data[il]) == 8)) {
     stop("Income Limits not parsed as expected", call. = FALSE)
   }
 
-  data[income_limits] <- lapply(data[income_limits], unlist)
+  data[il] <- lapply(data[il], unlist)
   data$size <- 1:8
   output <- as.data.frame(data, row.names = data$size)
 
