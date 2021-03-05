@@ -34,7 +34,7 @@ get_geo <- function(geography, state = NULL,
 
   token <- check_token(token)
 
-  if (length(geography) > 1 || !(geography %in% c("state", "county", "metro"))) {
+  if (length(geography) != 1 || !(geography %in% c("state", "county", "metro"))) {
     stop("`geography` must be one of `state`, `county`, or `metro`", call. = FALSE)
   }
 
@@ -125,7 +125,7 @@ get_fmr <- function(geography, state, year,
 
   token <- check_token(token)
 
-  if (length(geography) > 1 || !(geography %in% c("county", "metro"))) {
+  if (length(geography) != 1 || !(geography %in% c("county", "metro"))) {
     stop("`geography` must be one of `county` or `metro`", call. = FALSE)
   }
 
@@ -222,11 +222,11 @@ get_il <- function(geography, entityid, year,
 
   token <- check_token(token)
 
-  if (length(geography) > 1 || !(geography %in% c("state", "county", "metro"))) {
+  if (length(geography) != 1 || !(geography %in% c("state", "county", "metro"))) {
     stop("`geography` must be one of `state`, `county`, or `metro`", call. = FALSE)
   }
 
-  if (length(entityid) > 1 || !is.character(entityid)) {
+  if (length(entityid) != 1 || !is.character(entityid)) {
     stop("Pass one `entityid` at a time as a string", call. = FALSE)
   }
 

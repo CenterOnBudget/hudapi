@@ -69,7 +69,7 @@ check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
     states <- c(states, "AS", "GU", "MP", "PR", "VI")
   }
 
-  if (length(state) > 1 || !is.character(state) || nchar(state) != 2) {
+  if (length(state) != 1 || !is.character(state) || nchar(state) != 2) {
     stop(
       "Pass one `state` at a time using an upper ",
       "or lowercase two-letter state abbreviation",
@@ -87,7 +87,7 @@ check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
 
 check_year <- function(year) {
 
-  if (length(year) > 1 || !is.numeric(year)) {
+  if (length(year) != 1 || !is.numeric(year)) {
     stop("Pass one `year` at a time as a number", call. = FALSE)
   }
 
