@@ -87,10 +87,14 @@ check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
 
 check_year <- function(year) {
 
+  if (length(year) > 1 || !is.numeric(year)) {
+    stop("Pass one `year` at a time as a number", call. = FALSE)
+  }
+
   # Year availability is not well-documented
-  if (length(year) > 1 || !(year %in% 2017:2020)) {
+  if (!(year %in% 2017:2020)) {
     stop(
-      "Data only available one `year` at a time for years 2017 through 2020",
+      "Invalid `year`, years 2017 to 2020 are supported",
       call. = FALSE
     )
   }
