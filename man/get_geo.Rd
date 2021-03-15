@@ -39,5 +39,5 @@ A tibble or base data frame with requested data.
 \description{
 \code{get_geo()} loads geographic data for states, counties, or metro areas
 from the HUD API. This function is particularly useful for looking up county
-FIPS codes and METRO codes.
+and METRO codes.
 }

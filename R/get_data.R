@@ -7,7 +7,7 @@
 #'
 #' \code{get_geo()} loads geographic data for states, counties, or metro areas
 #' from the HUD API. This function is particularly useful for looking up county
-#' FIPS codes and METRO codes.
+#' and METRO codes.
 #'
 #' @param geography Geography of data to pull. One of "state", "county", or
 #'   "metro".
@@ -82,11 +82,6 @@ get_geo <- function(geography, state = NULL,
   if (geography == "state") {
     # Add leading 0 to state FIPS codes
     output$state_num <- sprintf("%02d", as.integer(output$state_num))
-  }
-
-  if (geography == "county") {
-    # Remove trailing 9s from county FIPS codes
-    output$fips_code <- substr(output$fips_code, start = 1, stop = 5)
   }
 
   if (drop_empty_cols) {
@@ -177,11 +172,6 @@ get_fmr <- function(geography, state, year,
 
   output$year <- data$year
 
-  if (geography == "county") {
-    # Remove trailing 9s from county FIPS codes
-    output$fips_code <- substr(output$fips_code, start = 1, stop = 5)
-  }
-
   if (drop_empty_cols) {
     output <- drop_empty_cols(output)
   }
@@ -205,9 +195,10 @@ get_fmr <- function(geography, state, year,
 #'   "metro".
 #' @param entityid ID of entity to pull data for. If geography is "state", ID
 #'   should be an upper or lowercase two-letter state abbreviation. The 50
-#'   states are supported. If geography is "county", ID should be a 5-character
-#'   county FIPS code. If geography is "metro", ID should be a 16-character
-#'   METRO code. Using \code{get_geo()} to look up METRO codes is recommended.
+#'   states are supported. If geography is "county", ID should be a 10-character
+#'   county code. If geography is "metro", ID should be a 16-character METRO
+#'   code. Using \code{get_geo()} to look up county and METRO codes is
+#'   recommended.
 #'
 #'   NB: To pull Income Limits for DC, AS, GU, MP, PR, or VI, you must request
 #'   data at the county or metro level of geography, as applicable.
@@ -233,9 +224,9 @@ get_il <- function(geography, entityid, year,
   if (geography == "state") {
     check_state(entityid, plus_dc = FALSE, plus_other = FALSE)
   } else if (geography == "county") {
-    if (nchar(entityid) != 5) {
+    if (nchar(entityid) != 10) {
       stop(
-        "If `geography` is `county`, `entityid` should be 5-character county FIPS code",
+        "If `geography` is `county`, `entityid` should be 10-character county code",
         call. = FALSE
       )
     }
@@ -254,8 +245,6 @@ get_il <- function(geography, entityid, year,
 
   if (geography == "state") {
     path <- glue::glue("hudapi/public/il/statedata/{entityid}")
-  } else if (geography == "county") {
-    path <- glue::glue("hudapi/public/il/data/{entityid}99999") # Must add trailing 9s
   } else {
     path <- glue::glue("hudapi/public/il/data/{entityid}")
   }
