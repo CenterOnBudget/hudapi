@@ -13,12 +13,12 @@ get_geo(
 )
 }
 \arguments{
-\item{geography}{Geography of data to pull. One of "state", "county", or
-"metro".}
+\item{geography}{Geography of data to pull. One of \code{"state"},
+\code{"county"}, or \code{"metro"}.}
 
-\item{state}{For county-level data, what state to pull data for. Specify as
-an upper or lowercase two-letter state abbreviation. The 50 states plus DC,
-AS, GU, MP, PR, and VI are supported.}
+\item{state}{If \code{geography} is \code{"county"}, what state to pull data
+for. Specify as an upper or lowercase two-letter state abbreviation. The 50
+states plus DC, AS, GU, MP, PR, and VI are supported.}
 
 \item{token}{HUD API
 \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.

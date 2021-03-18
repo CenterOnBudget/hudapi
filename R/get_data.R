@@ -9,11 +9,11 @@
 #' from the HUD API. This function is particularly useful for looking up county
 #' and METRO codes.
 #'
-#' @param geography Geography of data to pull. One of "state", "county", or
-#'   "metro".
-#' @param state For county-level data, what state to pull data for. Specify as
-#'   an upper or lowercase two-letter state abbreviation. The 50 states plus DC,
-#'   AS, GU, MP, PR, and VI are supported.
+#' @param geography Geography of data to pull. One of \code{"state"},
+#'   \code{"county"}, or \code{"metro"}.
+#' @param state If \code{geography} is \code{"county"}, what state to pull data
+#'   for. Specify as an upper or lowercase two-letter state abbreviation. The 50
+#'   states plus DC, AS, GU, MP, PR, and VI are supported.
 #' @param token HUD API
 #'   \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
 #'   Store your token in env var \code{HUD_API_TOKEN} to pass automatically
@@ -103,7 +103,8 @@ get_geo <- function(geography, state = NULL,
 #' \code{get_fmr()} loads Fair Market Rents for counties or metro areas within
 #' a given state from the HUD API.
 #'
-#' @param geography Geography of data to pull. One of "county" or "metro".
+#' @param geography Geography of data to pull. One of \code{"county"} or
+#'   \code{"metro"}.
 #' @param state State to pull data for. Specify as an upper or lowercase
 #'   two-letter state abbreviation. The 50 states plus DC, AS, GU, MP, PR, and
 #'   VI are supported.
@@ -191,17 +192,17 @@ get_fmr <- function(geography, state, year,
 #' \code{get_il()} loads Income Limits for a given state, county, or
 #' metro area from the HUD API.
 #'
-#' @param geography Geography of data to pull. One of "state", "county", or
-#'   "metro".
-#' @param entityid ID of entity to pull data for. If geography is "state", ID
-#'   should be an upper or lowercase two-letter state abbreviation. The 50
-#'   states are supported. If geography is "county", ID should be a 10-character
-#'   county code. If geography is "metro", ID should be a 16-character METRO
-#'   code. Using \code{get_geo()} to look up county and METRO codes is
-#'   recommended.
+#' @param geography Geography of data to pull. One of \code{"state"},
+#'   \code{"county"}, or \code{"metro"}.
+#' @param entityid ID of entity to pull data for. If \code{geography} is
+#'   \code{"state"}, ID should be an upper or lowercase two-letter state
+#'   abbreviation. The 50 states are supported. If \code{geography} is
+#'   \code{"county"}, ID should be a 10-character county code. If
+#'   \code{geography} is \code{"metro"}, ID should be a 16-character METRO code.
+#'   Using \code{get_geo()} to look up county and METRO codes is recommended.
 #'
-#'   NB: To pull Income Limits for DC, AS, GU, MP, PR, or VI, you must request
-#'   data at the county or metro level of geography, as applicable.
+#'   Note: To pull Income Limits for DC, AS, GU, MP, PR, or VI, you must specify
+#'   \code{geography} as \code{"county"} or \code{"metro"}, as applicable.
 #' @inheritParams get_fmr
 #' @return A tibble or base data frame with requested data.
 #'

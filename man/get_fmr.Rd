@@ -14,7 +14,8 @@ get_fmr(
 )
 }
 \arguments{
-\item{geography}{Geography of data to pull. One of "county" or "metro".}
+\item{geography}{Geography of data to pull. One of \code{"county"} or
+\code{"metro"}.}
 
 \item{state}{State to pull data for. Specify as an upper or lowercase
 two-letter state abbreviation. The 50 states plus DC, AS, GU, MP, PR, and
