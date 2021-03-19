@@ -6,7 +6,7 @@
 
 R package for loading data from the US Department of Housing and Urban Development's Fair Market Rents and Income Limits Datasets API (hereinafter "HUD API"). Package provides functions to easily load HUD API datasets as [tibbles](https://tibble.tidyverse.org/) or base data frames.
 
-Note: hudapi uses the HUD API, but is not endorsed or certified by HUD.
+Note: hudapi uses the HUD User Data API but is not endorsed or certified by HUD User.
 
 ## Installation
 
