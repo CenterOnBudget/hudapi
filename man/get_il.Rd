@@ -18,14 +18,11 @@ get_il(
 \code{"county"}, or \code{"metro"}.}
 
 \item{entityid}{ID of entity to pull data for. If \code{geography} is
-  \code{"state"}, ID should be an upper or lowercase two-letter state
-  abbreviation. The 50 states are supported. If \code{geography} is
-  \code{"county"}, ID should be a 10-character county code. If
-  \code{geography} is \code{"metro"}, ID should be a 16-character METRO code.
-  Using \code{get_geo()} to look up county and METRO codes is recommended.
-
-  Note: To pull Income Limits for DC, AS, GU, MP, PR, or VI, you must specify
-  \code{geography} as \code{"county"} or \code{"metro"}, as applicable.}
+\code{"state"}, ID should be an upper or lowercase two-letter state
+abbreviation. The 50 states are supported. If \code{geography} is
+\code{"county"}, ID should be a 10-character county code. If
+\code{geography} is \code{"metro"}, ID should be a 16-character METRO code.
+Using \code{get_geo()} to look up county and METRO codes is recommended.}
 
 \item{year}{Year to pull data for. Currently, years 2017 to 2020 are
 supported.}

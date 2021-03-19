@@ -200,9 +200,6 @@ get_fmr <- function(geography, state, year,
 #'   \code{"county"}, ID should be a 10-character county code. If
 #'   \code{geography} is \code{"metro"}, ID should be a 16-character METRO code.
 #'   Using \code{get_geo()} to look up county and METRO codes is recommended.
-#'
-#'   Note: To pull Income Limits for DC, AS, GU, MP, PR, or VI, you must specify
-#'   \code{geography} as \code{"county"} or \code{"metro"}, as applicable.
 #' @inheritParams get_fmr
 #' @return A tibble or base data frame with requested data.
 #'
