@@ -7,15 +7,19 @@
 
 check_token <- function(token) {
 
-  if (is.null(token)) {
-    if (Sys.getenv("HUD_API_TOKEN") != "") {
-      Sys.getenv("HUD_API_TOKEN")
-    } else {
-      stop("You must provide a HUD API access `token`", call. = FALSE)
-    }
-  } else {
+  # If non-`NULL` value was passed, return as given
+
+  if (!is.null(token)) {
     message("Store your `token` in env var `HUD_API_TOKEN` to pass automatically")
-    token
+    return(token)
+  }
+
+  # Otherwise, look for env var `HUD_API_TOKEN`
+
+  if (Sys.getenv("HUD_API_TOKEN") != "") {
+    Sys.getenv("HUD_API_TOKEN")
+  } else {
+    stop("You must provide a HUD API access `token`", call. = FALSE)
   }
 }
 
