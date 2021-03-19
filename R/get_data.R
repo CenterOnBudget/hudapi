@@ -1,8 +1,5 @@
 
 
-# Main functions to load data from HUD API
-
-
 #' Load geographic data from HUD API
 #'
 #' \code{get_geo()} loads geographic data for states, counties, or metro areas
@@ -290,4 +287,3 @@ get_il <- function(geography, entityid, year,
     output
   }
 }
-

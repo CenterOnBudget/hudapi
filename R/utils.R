@@ -1,8 +1,5 @@
 
 
-# Small utility functions used to streamline main functions (in `get_data.R`)
-
-
 # Check access token
 
 check_token <- function(token) {
@@ -127,4 +124,3 @@ drop_empty_cols <- function(df) {
     df
   }
 }
-
