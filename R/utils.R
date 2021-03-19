@@ -61,6 +61,8 @@ check_resp <- function(resp) {
 
 check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
 
+  # Start with 50 states and build from there
+
   states <- datasets::state.abb
 
   if (plus_dc) {
@@ -91,11 +93,12 @@ check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
 
 check_year <- function(year) {
 
+  # Year availability is not well-documented
+
   if (length(year) != 1 || !is.numeric(year)) {
     stop("Pass one `year` at a time as a number", call. = FALSE)
   }
 
-  # Year availability is not well-documented
   if (!(year %in% 2017:2020)) {
     stop(
       "Invalid `year`, years 2017 to 2020 are supported",
@@ -108,6 +111,8 @@ check_year <- function(year) {
 # Drop empty columns
 
 drop_empty_cols <- function(df) {
+
+  # Columns that are all `NA` or empty strings will be dropped
 
   empty_cols <- vector(mode = "logical", length = ncol(df))
   names(empty_cols) <- names(df)
