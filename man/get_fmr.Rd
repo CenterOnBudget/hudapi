@@ -11,7 +11,7 @@ get_fmr(
   token = NULL,
   drop_empty_cols = TRUE,
   tibble = TRUE,
-  show_call = FALSE
+  show_url = FALSE
 )
 }
 \arguments{
@@ -38,7 +38,7 @@ returned data.}
 \href{https://tibble.tidyverse.org/index.html}{tibble}. Otherwise, return
 data as a base data frame.}
 
-\item{show_call}{If \code{TRUE}, show call made to HUD API. Defaults to
+\item{show_url}{If \code{TRUE}, show URL the request was sent to. Defaults to
 \code{FALSE}.}
 }
 \value{

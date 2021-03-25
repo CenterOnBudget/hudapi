@@ -23,7 +23,7 @@ check_token <- function(token) {
 
 # Check HUD API response
 
-check_resp <- function(resp) {
+check_resp <- function(resp, show_url) {
 
   # Response code descriptions from HUD API documentation:
   # https://www.huduser.gov/portal/dataset/fmr-api.html
@@ -39,6 +39,10 @@ check_resp <- function(resp) {
     `406` = "Unsupported Accept Header value, must be application/json",
     `500` = "Internal server error occurred"
   )
+
+  if (show_url) {
+    message("URL: ", resp$url)
+  }
 
   if (httr::http_type(resp) != "application/json") {
     stop("HUD API did not return JSON", call. = FALSE)

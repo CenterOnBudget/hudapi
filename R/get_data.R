@@ -21,14 +21,14 @@
 #' @param tibble If \code{TRUE} (default), return data as a
 #'   \href{https://tibble.tidyverse.org/index.html}{tibble}. Otherwise, return
 #'   data as a base data frame.
-#' @param show_call If \code{TRUE}, show call made to HUD API. Defaults to
+#' @param show_url If \code{TRUE}, show URL the request was sent to. Defaults to
 #'   \code{FALSE}.
 #' @return A tibble or base data frame with requested data.
 #'
 #' @export
 get_geo <- function(geography, state = NULL,
                     token = NULL, drop_empty_cols = TRUE,
-                    tibble = TRUE, show_call = FALSE) {
+                    tibble = TRUE, show_url = FALSE) {
 
   # Check args -----------------------------------------------------------------
 
@@ -69,11 +69,7 @@ get_geo <- function(geography, state = NULL,
     httr::add_headers(Authorization = glue::glue("Bearer {token}"))
   )
 
-  check_resp(resp)
-
-  if (show_call) {
-    message("HUD API call: ", resp$url)
-  }
+  check_resp(resp, show_url = show_url)
 
   # Clean data -----------------------------------------------------------------
 
@@ -120,7 +116,7 @@ get_geo <- function(geography, state = NULL,
 #' @export
 get_fmr <- function(geography, state, year,
                     token = NULL, drop_empty_cols = TRUE,
-                    tibble = TRUE, show_call = FALSE) {
+                    tibble = TRUE, show_url = FALSE) {
 
   # Check args -----------------------------------------------------------------
 
@@ -142,11 +138,7 @@ get_fmr <- function(geography, state, year,
     httr::add_headers(Authorization = glue::glue("Bearer {token}"))
   )
 
-  check_resp(resp)
-
-  if (show_call) {
-    message("HUD API call: ", resp$url)
-  }
+  check_resp(resp, show_url = show_url)
 
   # Clean data -----------------------------------------------------------------
 
@@ -215,7 +207,7 @@ get_fmr <- function(geography, state, year,
 #' @export
 get_il <- function(geography, entityid, year,
                    token = NULL, drop_empty_cols = TRUE,
-                   tibble = TRUE, show_call = FALSE) {
+                   tibble = TRUE, show_url = FALSE) {
 
   # Check args -----------------------------------------------------------------
 
@@ -264,11 +256,7 @@ get_il <- function(geography, entityid, year,
     httr::add_headers(Authorization = glue::glue("Bearer {token}"))
   )
 
-  check_resp(resp)
-
-  if (show_call) {
-    message("HUD API call: ", resp$url)
-  }
+  check_resp(resp, show_url = show_url)
 
   # Clean data -----------------------------------------------------------------
 
