@@ -9,7 +9,8 @@ get_geo(
   state = NULL,
   token = NULL,
   drop_empty_cols = TRUE,
-  tibble = TRUE
+  tibble = TRUE,
+  show_call = FALSE
 )
 }
 \arguments{
@@ -32,6 +33,9 @@ returned data.}
 \item{tibble}{If \code{TRUE} (default), return data as a
 \href{https://tibble.tidyverse.org/index.html}{tibble}. Otherwise, return
 data as a base data frame.}
+
+\item{show_call}{If \code{TRUE}, show call made to HUD API. Defaults to
+\code{FALSE}.}
 }
 \value{
 A tibble or base data frame with requested data.
