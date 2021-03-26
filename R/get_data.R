@@ -9,8 +9,8 @@
 #' @param geography Geography of data to pull. One of \code{"state"},
 #'   \code{"county"}, or \code{"metro"}.
 #' @param state If \code{geography} is \code{"county"}, what state to pull data
-#'   for. Specify as an upper or lowercase two-letter state abbreviation. The 50
-#'   states plus DC, AS, GU, MP, PR, and VI are supported.
+#'   for. Specify as a two-letter state abbreviation. The 50 states plus DC, AS,
+#'   GU, MP, PR, and VI are supported.
 #' @param token HUD API
 #'   \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
 #'   Store your token in env var \code{HUD_API_TOKEN} to pass automatically
@@ -42,7 +42,7 @@ get_geo <- function(geography, state = NULL,
     if (is.null(state)) {
       stop("If `geography` is `county`, you must specify a `state`", call. = FALSE)
     } else {
-      check_state(state)
+      state <- check_state(state)
     }
   } else {
     if (!is.null(state)) {
@@ -105,9 +105,8 @@ get_geo <- function(geography, state = NULL,
 #'
 #' @param geography Geography of data to pull. One of \code{"county"} or
 #'   \code{"metro"}.
-#' @param state State to pull data for. Specify as an upper or lowercase
-#'   two-letter state abbreviation. The 50 states plus DC, AS, GU, MP, PR, and
-#'   VI are supported.
+#' @param state State to pull data for. Specify as a two-letter state
+#'   abbreviation. The 50 states plus DC, AS, GU, MP, PR, and VI are supported.
 #' @param year Year to pull data for. Currently, years 2017 to 2020 are
 #'   supported.
 #' @inheritParams get_geo
@@ -126,8 +125,8 @@ get_fmr <- function(geography, state, year,
     stop("`geography` must be one of `county` or `metro`", call. = FALSE)
   }
 
-  check_state(state)
-  check_year(year)
+  state <- check_state(state)
+  check_year(year, dataset = "fmr")
 
   # Get data -------------------------------------------------------------------
 
@@ -196,11 +195,11 @@ get_fmr <- function(geography, state, year,
 #' @param geography Geography of data to pull. One of \code{"state"},
 #'   \code{"county"}, or \code{"metro"}.
 #' @param entityid ID of entity to pull data for. If \code{geography} is
-#'   \code{"state"}, ID should be an upper or lowercase two-letter state
-#'   abbreviation. The 50 states are supported. If \code{geography} is
-#'   \code{"county"}, ID should be a 10-character county code. If
-#'   \code{geography} is \code{"metro"}, ID should be a 16-character METRO code.
-#'   Using \code{get_geo()} to look up county and METRO codes is recommended.
+#'   \code{"state"}, ID should be a two-letter state abbreviation. The 50 states
+#'   are supported. If \code{geography} is \code{"county"}, ID should be a
+#'   10-character county code. If \code{geography} is \code{"metro"}, ID should
+#'   be a 16-character METRO code. Using \code{get_geo()} to look up county and
+#'   METRO codes is recommended.
 #' @inheritParams get_fmr
 #' @return A tibble or base data frame with requested data.
 #'
@@ -222,7 +221,7 @@ get_il <- function(geography, entityid, year,
   }
 
   if (geography == "state") {
-    check_state(entityid, plus_dc = FALSE, plus_other = FALSE)
+    entityid <- check_state(entityid, plus_dc = FALSE, plus_other = FALSE)
   } else if (geography == "county") {
     if (nchar(entityid) != 10) {
       stop(
@@ -239,7 +238,7 @@ get_il <- function(geography, entityid, year,
     }
   }
 
-  check_year(year)
+  check_year(year, dataset = "il")
 
   # Get data -------------------------------------------------------------------
 

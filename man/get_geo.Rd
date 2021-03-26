@@ -18,8 +18,8 @@ get_geo(
 \code{"county"}, or \code{"metro"}.}
 
 \item{state}{If \code{geography} is \code{"county"}, what state to pull data
-for. Specify as an upper or lowercase two-letter state abbreviation. The 50
-states plus DC, AS, GU, MP, PR, and VI are supported.}
+for. Specify as a two-letter state abbreviation. The 50 states plus DC, AS,
+GU, MP, PR, and VI are supported.}
 
 \item{token}{HUD API
 \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
