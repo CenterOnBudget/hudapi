@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.R
 \name{get_fmr}
 \alias{get_fmr}
-\title{Load Fair Market Rents from HUD API}
+\title{Load Fair Market Rents from the HUD API}
 \usage{
 get_fmr(
   geography,

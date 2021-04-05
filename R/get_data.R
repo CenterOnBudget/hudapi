@@ -1,6 +1,6 @@
 
 
-#' Load geographic data from HUD API
+#' Load geographic data from the HUD API
 #'
 #' \code{get_geo()} loads geographic data for states, counties, or metro areas
 #' from the HUD API. This function is particularly useful for looking up county
@@ -97,7 +97,7 @@ get_geo <- function(geography, state = NULL,
 }
 
 
-#' Load Fair Market Rents from HUD API
+#' Load Fair Market Rents from the HUD API
 #'
 #' \code{get_fmr()} loads Fair Market Rents for counties or metro areas within
 #' a given state from the HUD API.
@@ -186,7 +186,7 @@ get_fmr <- function(geography, state, year,
 }
 
 
-#' Load Income Limits from HUD API
+#' Load Income Limits from the HUD API
 #'
 #' \code{get_il()} loads Income Limits for a given state, county, or
 #' metro area from the HUD API.

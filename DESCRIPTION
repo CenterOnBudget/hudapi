@@ -1,15 +1,13 @@
 Package: hudapi
-Title: Load Data From HUD API Into R
+Title: Load Data From the HUD API Into R
 Version: 0.1.0
 Authors@R: person(
   given = "Matt",
   family = "Saenz",
   email = "vsaenz@cbpp.org",
   role = c("aut", "cre"))
-Description: R package for loading data from the US Department of Housing and
-    Urban Development's Fair Market Rents and Income Limits Datasets API
-    (hereinafter "HUD API"). Package provides functions to easily load HUD API
-    datasets as tibbles or base data frames.
+Description: Load data from the HUD User Data API into R, including Fair Market
+    Rents and Income Limits.
 License: file LICENSE
 LazyData: true
 Imports: 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.R
 \name{get_geo}
 \alias{get_geo}
-\title{Load geographic data from HUD API}
+\title{Load geographic data from the HUD API}
 \usage{
 get_geo(
   geography,

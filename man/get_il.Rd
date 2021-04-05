@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.R
 \name{get_il}
 \alias{get_il}
-\title{Load Income Limits from HUD API}
+\title{Load Income Limits from the HUD API}
 \usage{
 get_il(
   geography,
