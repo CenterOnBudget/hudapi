@@ -41,9 +41,8 @@ get_geo <- function(geography, state = NULL,
   if (geography == "county") {
     if (is.null(state)) {
       stop("If `geography` is `county`, you must specify a `state`", call. = FALSE)
-    } else {
-      state <- check_state(state)
     }
+    state <- check_state(state)
   } else {
     if (!is.null(state)) {
       warning(

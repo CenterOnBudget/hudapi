@@ -13,11 +13,11 @@ check_token <- function(token) {
 
   # Otherwise, look for env var `HUD_API_TOKEN`
 
-  if (Sys.getenv("HUD_API_TOKEN") != "") {
-    Sys.getenv("HUD_API_TOKEN")
-  } else {
+  if (Sys.getenv("HUD_API_TOKEN") == "") {
     stop("You must provide a HUD API access `token`", call. = FALSE)
   }
+
+  Sys.getenv("HUD_API_TOKEN")
 }
 
 
@@ -88,9 +88,9 @@ check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
 
   if (!(state %in% states)) {
     stop("Invalid `state`, see help page for supported states", call. = FALSE)
-  } else {
-    state
   }
+
+  state # Return uppercase
 }
 
 
