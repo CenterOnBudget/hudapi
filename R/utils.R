@@ -3,15 +3,10 @@
 # Check access token
 
 check_token <- function(token) {
-
-  # If non-`NULL` value was passed, return as given
-
   if (!is.null(token)) {
     message("Store your `token` in env var `HUD_API_TOKEN` to pass automatically")
     return(token)
   }
-
-  # Otherwise, look for env var `HUD_API_TOKEN`
 
   if (Sys.getenv("HUD_API_TOKEN") == "") {
     stop("You must provide a HUD API access `token`", call. = FALSE)
@@ -129,9 +124,6 @@ check_year <- function(year, dataset) {
 # Drop empty columns
 
 drop_empty_cols <- function(df) {
-
-  # Columns that are all `NA` or empty strings will be dropped
-
   empty_cols <- vector(mode = "logical", length = ncol(df))
   names(empty_cols) <- names(df)
 

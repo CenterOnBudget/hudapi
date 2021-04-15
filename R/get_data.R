@@ -224,14 +224,14 @@ get_il <- function(geography, entityid, year,
   } else if (geography == "county") {
     if (nchar(entityid) != 10) {
       stop(
-        "If `geography` is `county`, `entityid` should be 10-character county code",
+        "If `geography` is `county`, `entityid` should be a 10-character county code",
         call. = FALSE
       )
     }
   } else {
     if (nchar(entityid) != 16) {
       stop(
-        "If `geography` is `metro`, `entityid` should be 16-character METRO code",
+        "If `geography` is `metro`, `entityid` should be a 16-character METRO code",
         call. = FALSE
       )
     }
