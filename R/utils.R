@@ -3,16 +3,15 @@
 # Check access token
 
 check_token <- function(token) {
-  if (!is.null(token)) {
+  if (is.null(token)) {
+    if (Sys.getenv("HUD_API_TOKEN") == "") {
+      stop("You must provide a HUD API access `token`", call. = FALSE)
+    }
+    Sys.getenv("HUD_API_TOKEN")
+  } else {
     message("Store your `token` in env var `HUD_API_TOKEN` to pass automatically")
-    return(token)
+    token
   }
-
-  if (Sys.getenv("HUD_API_TOKEN") == "") {
-    stop("You must provide a HUD API access `token`", call. = FALSE)
-  }
-
-  Sys.getenv("HUD_API_TOKEN")
 }
 
 
