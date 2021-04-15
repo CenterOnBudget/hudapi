@@ -1,7 +1,7 @@
 # hudapi
 
 [![R-CMD-check](https://github.com/CenterOnBudget/hudapi/workflows/R-CMD-check/badge.svg)](https://github.com/CenterOnBudget/hudapi/actions)
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 ## Overview
 
@@ -30,4 +30,3 @@ HUD_API_TOKEN="your_token_here"
 ```
 
 This allows hudapi to automatically load your access token when pulling data from the HUD API, and saves you from having to manually copy-paste your token around or openly include your token in scripts you may share with others (or post on GitHub).
-
