@@ -8,7 +8,7 @@ get_fmr(
   geography,
   state,
   year,
-  token = NULL,
+  token = get_token(),
   drop_empty_cols = TRUE,
   tibble = TRUE,
   show_url = FALSE
@@ -26,9 +26,7 @@ supported.}
 
 \item{token}{HUD API
 \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
-Store your token in env var \code{HUD_API_TOKEN} to pass automatically
-(see \href{https://github.com/CenterOnBudget/hudapi}{README} for
-instructions).}
+Defaults to environment variable \code{HUD_API_TOKEN}.}
 
 \item{drop_empty_cols}{If \code{TRUE} (default), drop empty columns in
 returned data.}

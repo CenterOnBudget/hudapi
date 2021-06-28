@@ -1,6 +1,6 @@
 Package: hudapi
 Title: Load Data From the HUD API Into R
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person(
   given = "Matt",
   family = "Saenz",
@@ -11,9 +11,8 @@ Description: Load data from the HUD User Data API into R, including Fair Market
 License: file LICENSE
 LazyData: true
 Imports: 
-    httr (>= 1.4.2),
-    jsonlite (>= 1.7.2),
-    glue (>= 1.4.2),
-    tibble (>= 3.0.6)
+    httr,
+    jsonlite,
+    tibble
 RoxygenNote: 7.1.1
 Encoding: UTF-8

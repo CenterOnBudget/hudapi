@@ -1,28 +1,42 @@
 
 
-# Check access token
+is_number <- function(x) is.numeric(x) && length(x) == 1
+is_string <- function(x) is.character(x) && length(x) == 1
+`%!in%` <- function(x, table) match(x, table, nomatch = 0) == 0
+
+
+get_token <- function() {
+  token <- Sys.getenv("HUD_API_TOKEN")
+
+  if (token == "") {
+    stop(
+      "HUD API access token not found, supply with `token` argument or env var `HUD_API_TOKEN`",
+      call. = FALSE
+    )
+  }
+
+  token
+}
+
 
 check_token <- function(token) {
-  if (is.null(token)) {
-    if (Sys.getenv("HUD_API_TOKEN") == "") {
-      stop("You must provide a HUD API access `token`", call. = FALSE)
-    }
-    Sys.getenv("HUD_API_TOKEN")
-  } else {
-    message("Store your `token` in env var `HUD_API_TOKEN` to pass automatically")
-    token
+  if (!is_string(token) || token == "") {
+    stop("`token` must be a non-empty string", call. = FALSE)
   }
 }
 
 
-# Check HUD API response
-
 check_resp <- function(resp, show_url) {
+  if (show_url) {
+    message("URL: ", resp$url)
+  }
+
+  if (httr::http_type(resp) != "application/json") {
+    stop("HUD API did not return JSON", call. = FALSE)
+  }
 
   # Response code descriptions from HUD API documentation:
   # https://www.huduser.gov/portal/dataset/fmr-api.html
-
-  # Lightly modified to ensure helpfulness
 
   resp_code_desc <- c(
     `200` = "Request was successful",
@@ -35,14 +49,6 @@ check_resp <- function(resp, show_url) {
     `500` = "Internal server error occurred"
   )
 
-  if (show_url) {
-    message("URL: ", resp$url)
-  }
-
-  if (httr::http_type(resp) != "application/json") {
-    stop("HUD API did not return JSON", call. = FALSE)
-  }
-
   if (resp$status_code != 200) {
     stop(
       "HUD API request failed [", resp$status_code, "]: ",
@@ -53,12 +59,7 @@ check_resp <- function(resp, show_url) {
 }
 
 
-# Check if specified state is valid
-
 check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
-
-  # Start with 50 states and build from there
-
   states <- datasets::state.abb
 
   if (plus_dc) {
@@ -66,12 +67,10 @@ check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
   }
 
   if (plus_other) {
-    # American Samoa, Guam, Northern Mariana Islands, Puerto Rico, and
-    # Virgin Islands
     states <- c(states, "AS", "GU", "MP", "PR", "VI")
   }
 
-  if (length(state) != 1 || !is.character(state) || nchar(state) != 2) {
+  if (!is_string(state) || nchar(state) != 2) {
     stop(
       "Pass one `state` at a time using a two-letter state abbreviation",
       call. = FALSE
@@ -80,47 +79,37 @@ check_state <- function(state, plus_dc = TRUE, plus_other = TRUE) {
 
   state <- toupper(state)
 
-  if (!(state %in% states)) {
+  if (state %!in% states) {
     stop("Invalid `state`, see help page for supported states", call. = FALSE)
   }
 
-  state # Return uppercase
+  state
 }
 
 
-# Check if specified year is valid
-
 check_year <- function(year, dataset) {
-
-  # Year availability is not well documented. See links below and
-  # test manually.
+  if (!is_number(year)) {
+    stop("`year` must be a number", call. = FALSE)
+  }
 
   # FMR: https://www.huduser.gov/portal/datasets/fmr.html
   # IL: https://www.huduser.gov/portal/datasets/il.html
 
-  lookup_years <- list(
+  lookup <- list(
     fmr = 2017:2021,
     il = 2017:2020
   )
 
-  years <- lookup_years[[dataset]]
+  years <- lookup[[dataset]]
 
-  if (length(year) != 1 || !is.numeric(year)) {
-    stop("Pass one `year` at a time as a number", call. = FALSE)
-  }
-
-  if (!(year %in% years)) {
+  if (year %!in% years) {
     stop(
-      glue::glue(
-        "Invalid `year`, years {years[1]} to {years[length(years)]} are supported"
-      ),
+      "Invalid `year`, years ", min(years), " to ", max(years), " are currently supported",
       call. = FALSE
     )
   }
 }
 
-
-# Drop empty columns
 
 drop_empty_cols <- function(df) {
   empty_cols <- vector(mode = "logical", length = ncol(df))
