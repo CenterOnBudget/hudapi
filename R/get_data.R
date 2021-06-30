@@ -11,8 +11,7 @@
 #' @param state If \code{geography} is \code{"county"}, what state to pull data
 #'   for. Specify as a two-letter state abbreviation. The 50 states plus DC, AS,
 #'   GU, MP, PR, and VI are supported.
-#' @param token HUD API
-#'   \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
+#' @param token \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{HUD API access token}.
 #'   Defaults to environment variable \code{HUD_API_TOKEN}.
 #' @param drop_empty_cols If \code{TRUE} (default), drop empty columns in
 #'   returned data.

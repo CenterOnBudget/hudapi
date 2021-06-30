@@ -24,8 +24,7 @@ abbreviation. The 50 states plus DC, AS, GU, MP, PR, and VI are supported.}
 \item{year}{Year to pull data for. Currently, years 2017 to 2020 are
 supported.}
 
-\item{token}{HUD API
-\href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
+\item{token}{\href{https://www.huduser.gov/portal/dataset/fmr-api.html}{HUD API access token}.
 Defaults to environment variable \code{HUD_API_TOKEN}.}
 
 \item{drop_empty_cols}{If \code{TRUE} (default), drop empty columns in
