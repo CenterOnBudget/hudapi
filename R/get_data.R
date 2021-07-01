@@ -11,11 +11,8 @@
 #' @param state If \code{geography} is \code{"county"}, what state to pull data
 #'   for. Specify as a two-letter state abbreviation. The 50 states plus DC, AS,
 #'   GU, MP, PR, and VI are supported.
-#' @param token HUD API
-#'   \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
-#'   Store your token in env var \code{HUD_API_TOKEN} to pass automatically
-#'   (see \href{https://github.com/CenterOnBudget/hudapi}{README} for
-#'   instructions).
+#' @param token \href{https://www.huduser.gov/portal/dataset/fmr-api.html}{HUD API access token}.
+#'   Defaults to environment variable \code{HUD_API_TOKEN}.
 #' @param drop_empty_cols If \code{TRUE} (default), drop empty columns in
 #'   returned data.
 #' @param tibble If \code{TRUE} (default), return data as a
@@ -27,26 +24,26 @@
 #'
 #' @export
 get_geo <- function(geography, state = NULL,
-                    token = NULL, drop_empty_cols = TRUE,
+                    token = get_token(), drop_empty_cols = TRUE,
                     tibble = TRUE, show_url = FALSE) {
 
   # Check args -----------------------------------------------------------------
 
-  token <- check_token(token)
+  check_token(token)
 
-  if (length(geography) != 1 || !(geography %in% c("state", "county", "metro"))) {
-    stop("`geography` must be one of `state`, `county`, or `metro`", call. = FALSE)
+  if (!is_string(geography) || geography %!in% c("state", "county", "metro")) {
+    stop('`geography` must be one of "state", "county", or "metro"', call. = FALSE)
   }
 
   if (geography == "county") {
     if (is.null(state)) {
-      stop("If `geography` is `county`, you must specify a `state`", call. = FALSE)
+      stop('If `geography` is "county", you must specify a `state`', call. = FALSE)
     }
     state <- check_state(state)
   } else {
     if (!is.null(state)) {
       warning(
-        "`state` ignored, you can only specify a `state` when `geography` is `county`",
+        '`state` ignored, you can only specify a `state` when `geography` is "county"',
         call. = FALSE
       )
     }
@@ -57,15 +54,15 @@ get_geo <- function(geography, state = NULL,
   if (geography == "state") {
     endpoint <- "listStates"
   } else if (geography == "county") {
-    endpoint <- glue::glue("listCounties/{state}")
+    endpoint <- paste0("listCounties/", state)
   } else {
     endpoint <- "listMetroAreas"
   }
 
   resp <- httr::GET(
     url = "https://www.huduser.gov",
-    path = glue::glue("hudapi/public/fmr/{endpoint}"),
-    httr::add_headers(Authorization = glue::glue("Bearer {token}"))
+    path = paste0("hudapi/public/fmr/", endpoint),
+    httr::add_headers(Authorization = paste("Bearer", token))
   )
 
   check_resp(resp, show_url = show_url)
@@ -113,15 +110,15 @@ get_geo <- function(geography, state = NULL,
 #'
 #' @export
 get_fmr <- function(geography, state, year,
-                    token = NULL, drop_empty_cols = TRUE,
+                    token = get_token(), drop_empty_cols = TRUE,
                     tibble = TRUE, show_url = FALSE) {
 
   # Check args -----------------------------------------------------------------
 
-  token <- check_token(token)
+  check_token(token)
 
-  if (length(geography) != 1 || !(geography %in% c("county", "metro"))) {
-    stop("`geography` must be one of `county` or `metro`", call. = FALSE)
+  if (!is_string(geography) || geography %!in% c("county", "metro")) {
+    stop('`geography` must be one of "county" or "metro"', call. = FALSE)
   }
 
   state <- check_state(state)
@@ -131,9 +128,9 @@ get_fmr <- function(geography, state, year,
 
   resp <- httr::GET(
     url = "https://www.huduser.gov",
-    path = glue::glue("hudapi/public/fmr/statedata/{state}"),
+    path = paste0("hudapi/public/fmr/statedata/", state),
     query = list(year = year),
-    httr::add_headers(Authorization = glue::glue("Bearer {token}"))
+    httr::add_headers(Authorization = paste("Bearer", token))
   )
 
   check_resp(resp, show_url = show_url)
@@ -204,18 +201,18 @@ get_fmr <- function(geography, state, year,
 #'
 #' @export
 get_il <- function(geography, entityid, year,
-                   token = NULL, drop_empty_cols = TRUE,
+                   token = get_token(), drop_empty_cols = TRUE,
                    tibble = TRUE, show_url = FALSE) {
 
   # Check args -----------------------------------------------------------------
 
-  token <- check_token(token)
+  check_token(token)
 
-  if (length(geography) != 1 || !(geography %in% c("state", "county", "metro"))) {
-    stop("`geography` must be one of `state`, `county`, or `metro`", call. = FALSE)
+  if (!is_string(geography) || geography %!in% c("state", "county", "metro")) {
+    stop('`geography` must be one of "state", "county", or "metro"', call. = FALSE)
   }
 
-  if (length(entityid) != 1 || !is.character(entityid)) {
+  if (!is_string(entityid)) {
     stop("Pass one `entityid` at a time as a string", call. = FALSE)
   }
 
@@ -224,14 +221,14 @@ get_il <- function(geography, entityid, year,
   } else if (geography == "county") {
     if (nchar(entityid) != 10) {
       stop(
-        "If `geography` is `county`, `entityid` should be a 10-character county code",
+        'If `geography` is "county", `entityid` must be a 10-character county code',
         call. = FALSE
       )
     }
   } else {
     if (nchar(entityid) != 16) {
       stop(
-        "If `geography` is `metro`, `entityid` should be a 16-character METRO code",
+        'If `geography` is "metro", `entityid` must be a 16-character METRO code',
         call. = FALSE
       )
     }
@@ -242,16 +239,16 @@ get_il <- function(geography, entityid, year,
   # Get data -------------------------------------------------------------------
 
   if (geography == "state") {
-    path <- glue::glue("hudapi/public/il/statedata/{entityid}")
+    path <- paste0("hudapi/public/il/statedata/", entityid)
   } else {
-    path <- glue::glue("hudapi/public/il/data/{entityid}")
+    path <- paste0("hudapi/public/il/data/", entityid)
   }
 
   resp <- httr::GET(
     url = "https://www.huduser.gov",
     path = path,
     query = list(year = year),
-    httr::add_headers(Authorization = glue::glue("Bearer {token}"))
+    httr::add_headers(Authorization = paste("Bearer", token))
   )
 
   check_resp(resp, show_url = show_url)

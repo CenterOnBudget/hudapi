@@ -8,7 +8,7 @@ get_il(
   geography,
   entityid,
   year,
-  token = NULL,
+  token = get_token(),
   drop_empty_cols = TRUE,
   tibble = TRUE,
   show_url = FALSE
@@ -28,11 +28,8 @@ METRO codes is recommended.}
 \item{year}{Year to pull data for. Currently, years 2017 to 2020 are
 supported.}
 
-\item{token}{HUD API
-\href{https://www.huduser.gov/portal/dataset/fmr-api.html}{access token}.
-Store your token in env var \code{HUD_API_TOKEN} to pass automatically
-(see \href{https://github.com/CenterOnBudget/hudapi}{README} for
-instructions).}
+\item{token}{\href{https://www.huduser.gov/portal/dataset/fmr-api.html}{HUD API access token}.
+Defaults to environment variable \code{HUD_API_TOKEN}.}
 
 \item{drop_empty_cols}{If \code{TRUE} (default), drop empty columns in
 returned data.}
